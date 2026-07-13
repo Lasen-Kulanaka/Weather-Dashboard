@@ -25,16 +25,24 @@ router.get('/search', async (req, res) => {
     const data = response.data;
 
     res.json({
-      cityName: data.name,
-      lat: data.coord.lat,
-      lon: data.coord.lon,
-      temp: data.main.temp,
-      feelsLike: data.main.feels_like,
-      condition: data.weather[0].main,
-      description: data.weather[0].description,
-      humidity: data.main.humidity,
-      windSpeed: data.wind.speed
-    });
+  cityName: data.name,
+  country: data.sys.country,
+  lat: data.coord.lat,
+  lon: data.coord.lon,
+  temp: data.main.temp,
+  feelsLike: data.main.feels_like,
+  tempMin: data.main.temp_min,
+  tempMax: data.main.temp_max,
+  condition: data.weather[0].main,
+  description: data.weather[0].description,
+  icon: data.weather[0].icon,
+  humidity: data.main.humidity,
+  windSpeed: data.wind.speed,
+  pressure: data.main.pressure,
+  visibility: data.visibility,
+  sunrise: data.sys.sunrise,
+  sunset: data.sys.sunset
+});
   } catch (err) {
     if (err.response && err.response.status === 404) {
       return res.status(404).json({ message: 'City not found' });

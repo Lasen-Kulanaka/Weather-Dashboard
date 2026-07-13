@@ -323,3 +323,190 @@ h1, h2, h3 {
   color: #64748b;
   font-size: 14px;
 }
+
+.temp-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.weather-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.min-max {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.quick-picks {
+  margin-bottom: 30px;
+}
+
+.quick-picks-label {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.quick-picks-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quick-picks-row button {
+  padding: 9px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.quick-picks-row button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+.weather-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Rain */
+.bg-rain span {
+  position: absolute;
+  top: -10%;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(180, 210, 255, 0), rgba(180, 210, 255, 0.6));
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(115vh);
+  }
+}
+
+/* Snow */
+.bg-snow span {
+  position: absolute;
+  top: -5%;
+  color: rgba(255, 255, 255, 0.85);
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes snowfall {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(55vh) translateX(20px); }
+  100% { transform: translateY(110vh) translateX(-10px); }
+}
+
+/* Thunderstorm */
+.bg-thunder {
+  position: absolute;
+  inset: 0;
+}
+
+.lightning-flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  animation: flash 6s infinite;
+}
+
+@keyframes flash {
+  0%, 96%, 100% { opacity: 0; }
+  97% { opacity: 0.35; }
+  98% { opacity: 0; }
+  98.5% { opacity: 0.2; }
+  99% { opacity: 0; }
+}
+
+/* Clouds */
+.bg-clouds {
+  position: absolute;
+  inset: 0;
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  filter: blur(4px);
+  animation-name: drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.cloud1 { width: 220px; height: 70px; top: 12%; animation-duration: 50s; }
+.cloud2 { width: 300px; height: 90px; top: 35%; animation-duration: 70s; animation-delay: -20s; }
+.cloud3 { width: 180px; height: 60px; top: 65%; animation-duration: 60s; animation-delay: -10s; }
+
+@keyframes drift {
+  from { transform: translateX(-30vw); }
+  to { transform: translateX(130vw); }
+}
+
+/* Clear */
+.bg-clear {
+  position: absolute;
+  inset: 0;
+}
+
+.sun-glow {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 214, 100, 0.35), rgba(255, 214, 100, 0) 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Mist */
+.bg-mist {
+  position: absolute;
+  inset: 0;
+}
+
+.mist-layer {
+  position: absolute;
+  width: 200%;
+  height: 100px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.08), rgba(255,255,255,0));
+  animation-name: mistDrift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.mist1 { top: 30%; animation-duration: 40s; }
+.mist2 { top: 60%; animation-duration: 55s; animation-delay: -15s; }
+
+@keyframes mistDrift {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0%); }
+}
