@@ -8,6 +8,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
+
+const weatherRoutes = require('./routes/weather');
+app.use('/api/weather', weatherRoutes);
+
 app.get('/', (req, res) => {
   res.send('API is running');
 });
