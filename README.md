@@ -93,7 +93,7 @@ The app will be available at `http://localhost:5173`, connecting to the backend 
 ## Screenshots
 
 **Login Page**
-![Login Page](screenshots\login.png)
+![Login Page](screenshots/login.png)
 
 **Dashboard**
 ![Dashboard - 01](screenshots/dashboard1.png)
