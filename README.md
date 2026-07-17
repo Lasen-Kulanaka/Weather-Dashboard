@@ -90,3 +90,11 @@ npm run dev
 ```
 The app will be available at `http://localhost:5173`, connecting to the backend at `http://localhost:5000`.
 
+## Screenshots
+
+**Login Page**
+![Login Page](screenshots\login.png)
+
+**Dashboard**
+![Dashboard - 01](screenshots/dashboard1.png)
+![Dashboard - 02](screenshots/dashboard2.png)
