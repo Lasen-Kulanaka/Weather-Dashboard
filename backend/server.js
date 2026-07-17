@@ -5,7 +5,9 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://weather-dashboard-1-0ppf.onrender.com'
+}));
 app.use(express.json());
 
 const authRoutes = require('./routes/auth');
