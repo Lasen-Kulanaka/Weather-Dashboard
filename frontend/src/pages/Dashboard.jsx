@@ -5,12 +5,19 @@ import SearchBar from '../components/SearchBar';
 import WeatherCard from '../components/WeatherCard';
 import FavoritesList from '../components/FavoritesList';
 import WeatherBackground from '../components/WeatherBackground';
+import ForecastStrip from '../components/ForecastStrip';
+import HourlyForecast from '../components/HourlyForecast';
+import AirQuality from '../components/AirQuality';
+import LocalClock from '../components/LocalClock';
 
 function Dashboard() {
     const [weather, setWeather] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [forecast, setForecast] = useState(null);
+    const [airQuality, setAirQuality] = useState(null);
+    const [timezone, setTimezone] = useState(null);
 
     const { user, logout } = useAuth();
 
@@ -27,14 +34,26 @@ function Dashboard() {
         loadFavorites();
     }, []);
 
+
     const handleSearch = async (city) => {
         setError('');
         setLoading(true);
         setWeather(null);
+        setForecast(null);
+        setAirQuality(null);
+        setTimezone(null);
 
         try {
-            const res = await api.get(`/weather/search?city=${city}`);
-            setWeather(res.data);
+            const [weatherRes, forecastRes] = await Promise.all([
+                api.get(`/weather/search?city=${city}`),
+                api.get(`/weather/forecast?city=${city}`)
+            ]);
+            setWeather(weatherRes.data);
+            setForecast(forecastRes.data.list);
+            setTimezone(forecastRes.data.timezone);
+
+            const aqRes = await api.get(`/weather/air-quality?lat=${weatherRes.data.lat}&lon=${weatherRes.data.lon}`);
+            setAirQuality(aqRes.data.aqi);
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to fetch weather');
         } finally {
@@ -96,6 +115,16 @@ function Dashboard() {
             {error && <p className="error-text">{error}</p>}
 
             <WeatherCard weather={weather} onSave={handleSave} isSaved={isSaved} />
+
+            {weather && (
+                <div className="weather-meta-row">
+                    <LocalClock timezoneOffsetSeconds={timezone} />
+                    <AirQuality aqi={airQuality} />
+                </div>
+            )}
+
+            <HourlyForecast forecastList={forecast} />
+            <ForecastStrip forecastList={forecast} />
 
             <FavoritesList favorites={favorites} onRemove={handleRemove} />
         </div>

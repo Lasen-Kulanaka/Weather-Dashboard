@@ -510,3 +510,129 @@ h1, h2, h3 {
   from { transform: translateX(-50%); }
   to { transform: translateX(0%); }
 }
+
+/* Hourly forecast */
+.hourly-forecast, .forecast-strip {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.hourly-forecast h3, .forecast-strip h3 {
+  font-size: 16px;
+  color: #cbd5e1;
+  margin-bottom: 14px;
+}
+
+.hourly-row {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.hourly-card {
+  min-width: 70px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 10px 8px;
+  flex-shrink: 0;
+}
+
+.hourly-time {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.hourly-card img {
+  width: 36px;
+  height: 36px;
+}
+
+.hourly-temp {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.forecast-strip-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.forecast-day-card {
+  flex: 1;
+  min-width: 90px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 14px 8px;
+}
+
+.forecast-day-name {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.forecast-day-card img {
+  width: 40px;
+  height: 40px;
+}
+
+.forecast-temp {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+.weather-meta-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.local-clock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #e2e8f0;
+}
+
+.clock-icon {
+  font-size: 16px;
+}
+
+.air-quality-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.aqi-label {
+  color: #94a3b8;
+}
+
+.aqi-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #0f172a;
+}

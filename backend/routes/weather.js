@@ -106,4 +106,74 @@ router.delete('/favorites/:id', authMiddleware, async (req, res) => {
   }
 });
 
+// 5-day / 3-hour forecast (used for both hourly and daily views)
+router.get('/forecast', async (req, res) => {
+  try {
+    const { city } = req.query;
+
+    if (!city) {
+      return res.status(400).json({ message: 'City name is required' });
+    }
+
+    const response = await axios.get('https://api.openweathermap.org/data/2.5/forecast', {
+      params: {
+        q: city,
+        appid: process.env.WEATHER_API_KEY,
+        units: 'metric'
+      }
+    });
+
+    const list = response.data.list.map((item) => ({
+      dt: item.dt,
+      temp: item.main.temp,
+      tempMin: item.main.temp_min,
+      tempMax: item.main.temp_max,
+      condition: item.weather[0].main,
+      icon: item.weather[0].icon,
+      dateText: item.dt_txt
+    }));
+
+    res.json({
+      cityName: response.data.city.name,
+      timezone: response.data.city.timezone,
+      list
+    });
+  } catch (err) {
+    if (err.response && err.response.status === 404) {
+      return res.status(404).json({ message: 'City not found' });
+    }
+    console.error(err.message);
+    res.status(500).json({ message: 'Failed to fetch forecast data' });
+  }
+});
+
+// Air quality index
+router.get('/air-quality', async (req, res) => {
+  try {
+    const { lat, lon } = req.query;
+
+    if (!lat || !lon) {
+      return res.status(400).json({ message: 'lat and lon are required' });
+    }
+
+    const response = await axios.get('https://api.openweathermap.org/data/2.5/air_pollution', {
+      params: {
+        lat,
+        lon,
+        appid: process.env.WEATHER_API_KEY
+      }
+    });
+
+    const item = response.data.list[0];
+
+    res.json({
+      aqi: item.main.aqi, // 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor
+      components: item.components
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'Failed to fetch air quality data' });
+  }
+});
+
 module.exports = router;
